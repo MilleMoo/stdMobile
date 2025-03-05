@@ -1,0 +1,12 @@
+[
+    { "id": 1, "name": "Alice", "exam": 55, "project": 25, "activity": 8 },
+    { "id": 2, "name": "Bob", "exam": 60, "project": 28, "activity": 9 },
+    { "id": 3, "name": "Charlie", "exam": 45, "project": 22, "activity": 7 },
+    { "id": 4, "name": "David", "exam": 50, "project": 27, "activity": 8 },
+    { "id": 5, "name": "Eve", "exam": 65, "project": 30, "activity": 10 },
+    { "id": 6, "name": "Frank", "exam": 40, "project": 20, "activity": 5 },
+    { "id": 7, "name": "Grace", "exam": 58, "project": 29, "activity": 9 },
+    { "id": 8, "name": "Hank", "exam": 62, "project": 26, "activity": 8 },
+    { "id": 9, "name": "Ivy", "exam": 70, "project": 30, "activity": 10 },
+    { "id": 10, "name": "Jack", "exam": 48, "project": 24, "activity": 7 }
+]
