@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import students from '../../assets/students.json'
-import {VictoryChart, VictoryBar, VictorTheme} from "victory-native"
+import { LineChart } from 'react-native-chart-kit'
 import { BarChart } from 'react-native-chart-kit'
-// import { opacity } from 'react-native-reanimated/lib/typescript/Colors'
 
 const ChartScreen = ({ navigation }) => {
     const studentScores = students.map((s) => ({
@@ -11,44 +10,54 @@ const ChartScreen = ({ navigation }) => {
         total: s.exam + s.project + s.activity,
     }));
 
-    // const customTheme = {
-    //     axis: {
-    //         style:{
-    //             tickLabels: {fontSize: 14, padding: 5}
-    //         },
-    //     },
-    // }
-
-    const totalScores = studentScores.map((s) => s.total)
-    const averageScores = totalScores.reduce((sum, score) => sum + score,0) / totalScores.length
-    const maxScores = Math.max(...totalScores)
-    const minScores = Math.min(...totalScores)
+    const totalScores = studentScores.map((s) => s.total);
+    const averageScores = totalScores.reduce((sum, score) => sum + score, 0) / totalScores.length;
+    const maxScores = Math.max(...totalScores);
+    const minScores = Math.min(...totalScores);
 
     return (
-        <View style = {style.container}>
-            <Text style = {style.title}>
+        <View style={style.container}>
+            <Text style={style.title}>
                 กราฟคะแนนร่วม
             </Text>
-
-            {/* <VictoryChart theme = {customTheme}>
-                <VictoryBar data={ studentScores} x="name" y= "total" 
-                    style = {{ 
-                        data: {fill: "tomato"},
-                        labels: {fontSize: 14, fill: "black"}
-                    }}
-                />
-            </VictoryChart> */}
-            <View style ={style.statContainer}>
-                <Text style = {style.statText}>
+            <View style={style.statContainer}>
+                <Text style={style.statText}>
                     ค่าเฉลี่ย: {averageScores}
                 </Text>
-                <Text style = {style.statText}>
+                <Text style={style.statText}>
                     คะแนนสูงสุด: {maxScores}
                 </Text>
-                <Text style = {style.statText}>
+                <Text style={style.statText}>
                     คะแนนต่ำสุด: {minScores}
                 </Text>
             </View>
+
+            <LineChart
+                data={{
+                    labels: students.map((s) => s.name),
+                    datasets: [
+                        {
+                            data: studentScores.map((s) => s.total),
+                            strokeWidth: 2, 
+                        },
+                    ],
+                }}
+                width={Dimensions.get('window').width - 40} 
+                height={220}
+                chartConfig={{
+                    backgroundColor: '#1e2923',
+                    backgroundGradientFrom: '#3b5998',
+                    backgroundGradientTo: '#192f6e',
+                    decimalPlaces: 2,
+                    color: () => 'rgba(255, 255, 255, 1)',
+                    labelColor: () => 'rgba(255, 255, 255, 1)',
+                    style: {
+                        borderRadius: 16,
+                    },
+                }}
+                bezier 
+                withDots={false} 
+            />
             <BarChart
                 data={{ 
                     labels: students.map((s) => s.name),
@@ -62,8 +71,8 @@ const ChartScreen = ({ navigation }) => {
                     backgroundGradientFrom: "#3b5998",
                     backgroundGradientTo: "#192f6e",
                     decimalPlaces: 2,
-                    color: () => `rgba(255,255,255, 1)`,
-                    labelColor: () => `rgba(255,255,255,1)`
+                    color: () => 'rgba(255,255,255, 1)',
+                    labelColor: () => 'rgba(255,255,255,1)'
                 }}
             />
         </View>
@@ -77,19 +86,19 @@ const style = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         marginBottom: 10,
     },
     statContainer: {
         marginTop: 20,
         padding: 10,
-        backgroundColor: "#f8f8f8",
+        backgroundColor: '#f8f8f8',
         borderRadius: 8,
     },
     statText: {
         fontSize: 18,
-        fontWeight: "bold",
-    }
+        fontWeight: 'bold',
+    },
 })
 
 export default ChartScreen;
